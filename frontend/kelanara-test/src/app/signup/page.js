@@ -5,14 +5,15 @@ import Layout from "../../../components/layout/layout";
 import Navbar from "../../../components/navbar";
 import React from "react";
 
-export default function LoginPage() {
+export default function RegisterPage() {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [confirmPassword, setConfirmPassword] = React.useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // TODO: implement login logic here
-        console.log({ email, password });
+        // TODO: implement register logic here
+        console.log({ email, password, confirmPassword });
     };
 
     return (
@@ -29,10 +30,12 @@ export default function LoginPage() {
                 <div className="flex items-center justify-center bg-gradient-to-br from-fuchsia-50 to-white">
                     <form
                         onSubmit={handleSubmit}
-                        className="w-full max-w-md p-8 h-92 flex flex-col justify-between bg-gray-100 rounded-xl shadow bg-gradient-to-br from-fuchsia-800 to-fuchsia-400 text-white"
+                        className="w-full max-w-md p-8 h-max flex flex-col justify-between bg-gray-100 rounded-xl shadow bg-gradient-to-br from-fuchsia-800 to-fuchsia-400 text-white"
                     >
                         <div>
-                            <h2 className="text-2xl font-bold mb-6">Login</h2>
+                            <h2 className="text-2xl font-bold mb-6">
+                                Register
+                            </h2>
                             <div className="mb-4">
                                 <Input
                                     type="email"
@@ -59,9 +62,23 @@ export default function LoginPage() {
                                     label="Password"
                                 />
                             </div>
+                            <div className="mb-6">
+                                <Input
+                                    type="password"
+                                    id="confirmPassword"
+                                    value={confirmPassword}
+                                    onChange={(e) =>
+                                        setConfirmPassword(e.target.value)
+                                    }
+                                    className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="••••••••"
+                                    required
+                                    label="Confirm Password"
+                                />
+                            </div>
                         </div>
 
-                        <Button type="submit">Login</Button>
+                        <Button type="submit">Register</Button>
                     </form>
                 </div>
             </div>

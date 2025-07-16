@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Button from "./button";
 
 export default function Navbar() {
@@ -12,8 +13,12 @@ export default function Navbar() {
                 </a>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     <div className="flex flex-row gap-2">
-                        <Button>Login</Button>
-                        <Button>Sign Up</Button>
+                        <Link href="/login">
+                            <Button>Login</Button>
+                        </Link>
+                        <Link href="/signup">
+                            <Button>Sign Up</Button>
+                        </Link>
                     </div>
                     <button
                         data-collapse-toggle="navbar-sticky"
