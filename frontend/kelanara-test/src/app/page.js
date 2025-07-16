@@ -45,7 +45,7 @@ export default function Home() {
                             Originals
                         </mark>{" "}
                     </h1>
-                    <div className="grid grid-cols-7 h-72 gap-6 overflow-hidden">
+                    <div className="grid grid-cols-6 h-72 gap-6 overflow-hidden">
                         <div className="h-full w-full object-cover rounded-2xl overflow-hidden">
                             <img
                                 src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
@@ -76,7 +76,7 @@ export default function Home() {
                             Horrror
                         </mark>{" "}
                     </h1>
-                    <div className="grid grid-cols-7 h-72 gap-6 overflow-hidden">
+                    <div className="grid grid-cols-6 h-72 gap-6 overflow-hidden">
                         <div className="h-full w-full object-cover rounded-2xl overflow-hidden">
                             <img
                                 src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
