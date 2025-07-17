@@ -20,6 +20,7 @@ CREATE TABLE "videos" (
     "description" TEXT,
     "video_url" TEXT NOT NULL,
     "status" "Status" NOT NULL DEFAULT 'draft',
+    "category" VARCHAR(100) NOT NULL,
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

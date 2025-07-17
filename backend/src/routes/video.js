@@ -71,13 +71,20 @@ router.get("/:id", authenticate, async (req, res) => {
 // POST /videos
 router.post("/", authenticate, isAdmin, async (req, res) => {
     try {
-        const { title, description, video_url, status = "draft" } = req.body;
+        const {
+            title,
+            description,
+            video_url,
+            status = "draft",
+            category,
+        } = req.body;
         const newVideo = await prisma.video.create({
             data: {
                 title,
                 description,
                 video_url,
                 status,
+                category,
             },
         });
         res.status(201).json({
@@ -100,10 +107,10 @@ router.post("/", authenticate, isAdmin, async (req, res) => {
 router.patch("/:id", authenticate, isAdmin, async (req, res) => {
     try {
         const id = Number(req.params.id);
-        const { title, description, video_url, status } = req.body;
+        const { title, description, video_url, status, category } = req.body;
         const updated = await prisma.video.update({
             where: { id },
-            data: { title, description, video_url, status },
+            data: { title, description, video_url, status, category },
         });
         res.status(200).json({
             message: "Video updated successfully",

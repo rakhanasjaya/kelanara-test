@@ -29,6 +29,7 @@ model Video {
   description String?
   video_url   String   @map("video_url")
   status      Status   @default(draft)
+  category    String   @db.VarChar(100)      // ← field baru untuk kategori
   created_at  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
   updated_at  DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
