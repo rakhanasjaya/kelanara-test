@@ -104,7 +104,7 @@ router.post("/", authenticate, isAdmin, async (req, res) => {
 });
 
 // PATCH /videos/:id
-router.patch("/:id", authenticate, isAdmin, async (req, res) => {
+router.post("/update/:id", authenticate, isAdmin, async (req, res) => {
     try {
         const id = Number(req.params.id);
         const { title, description, video_url, status, category } = req.body;

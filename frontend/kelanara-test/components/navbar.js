@@ -6,16 +6,20 @@ import Button from "./button";
 
 export default function Navbar() {
     const [token, setToken] = useState(null);
+    const [role, setRole] = useState(null);
 
     useEffect(() => {
         setToken(localStorage.getItem("token"));
+        setRole(localStorage.getItem("role"));
     }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("role"); // Clear role if needed
         setToken(null);
         window.location.href = "/login"; // Redirect to login page after logout
     };
+
     return (
         <nav className="bg-white w-full z-20 top-0 left-0 border-b border-gray-200">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -44,6 +48,11 @@ export default function Navbar() {
                                     <Button>Sign Up</Button>
                                 </Link>
                             </>
+                        )}
+                        {role === "admin" && (
+                            <Link href="/adminDashboard">
+                                <Button>Admin Dashboard</Button>
+                            </Link>
                         )}
                     </div>
 
