@@ -8,6 +8,7 @@ import Layout from "../../../components/layout/layout";
 import InputSecondary from "../../../components/inputSecond";
 import Button from "../../../components/button";
 import { videos } from "../../../staticData/videos";
+import Footer from "../../../components/footer";
 
 export default function CreateVideo() {
     const router = useRouter();
@@ -139,6 +140,7 @@ export default function CreateVideo() {
                     </Button>
                 </form>
             </Layout>
+            <Footer />
         </div>
     );
 }

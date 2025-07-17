@@ -7,6 +7,7 @@ import Layout from "../../../components/layout/layout";
 import Navbar from "../../../components/navbar";
 import { videos as initialVideos } from "../../../staticData/videos";
 import Link from "next/link";
+import Footer from "../../../components/footer";
 
 export default function AdminDashboard() {
     const [videos, setVideos] = useState(
@@ -119,6 +120,7 @@ export default function AdminDashboard() {
                     Apply Changes
                 </Button>
             </Layout>
+            <Footer />
         </div>
     );
 }

@@ -1,6 +1,7 @@
 // app/page.jsx  (or pages/index.jsx, adjust path as needed)
 "use client";
 import Navbar from "../../components/navbar";
+import Footer from "../../components/footer";
 import Layout from "../../components/layout/layout";
 import Link from "next/link";
 // import the static data
@@ -87,6 +88,7 @@ export default function Home() {
                     </div>
                 </div>
             </Layout>
+            <Footer />
         </div>
     );
 }

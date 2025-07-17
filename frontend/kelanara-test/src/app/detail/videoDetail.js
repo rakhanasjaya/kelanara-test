@@ -6,6 +6,7 @@ import Layout from "../../../components/layout/layout";
 import Navbar from "../../../components/navbar";
 import ReactPlayer from "react-player";
 import { videos } from "../../../staticData/videos";
+import Footer from "../../../components/footer";
 
 export default function VideoDetail() {
     const searchParams = useSearchParams();
@@ -54,6 +55,7 @@ export default function VideoDetail() {
                     {video.description}
                 </p>
             </Layout>
+            <Footer />
         </div>
     );
 }
