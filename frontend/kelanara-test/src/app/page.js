@@ -60,46 +60,44 @@ export default function Home() {
 }
 
 function Section({ title, items, cols = 3 }) {
+    // Tentukan kelas grid-cols berdasarkan nilai cols
+    const gridColsClass = cols === 6 ? "grid-cols-6" : "grid-cols-3";
+
     return (
         <div className="flex flex-col gap-2 mb-8">
             <h1 className="mb-4 text-lg font-extrabold leading-none tracking-tight text-gray-900 md:text-xl lg:text-2xl">
                 {title}
             </h1>
-            <div
-                className={`grid grid-cols-${cols} h-72 gap-6 overflow-hidden`}
-            >
+            <div className={`grid ${gridColsClass} h-72 gap-6 overflow-hidden`}>
                 {items.map((video) => (
                     <Link
                         key={video.id}
                         href={`/detail?id=${video.id}`}
                         className="relative group rounded-2xl overflow-hidden h-full w-full"
                     >
-                        {/* Thumbnail with blur on hover */}
                         <img
                             src={video.thumbnail}
                             alt={video.title}
                             className="h-full w-full object-cover transition duration-300 group-hover:blur-sm"
                         />
-
-                        {/* Overlay */}
                         <div
                             className="
-                absolute inset-0 
-                bg-black bg-opacity-50 
-                flex flex-col items-center justify-center 
-                opacity-0 group-hover:opacity-100 
-                transition-opacity duration-300
-                text-white
-              "
+              absolute inset-0
+              bg-black bg-opacity-50
+              flex flex-col items-center justify-center
+              opacity-0 group-hover:opacity-100
+              transition-opacity duration-300
+              text-white
+            "
                         >
                             <button
                                 className="
-                  mb-2 p-3 rounded-full bg-white bg-opacity-20 
+                  mb-2 p-3 rounded-full bg-white bg-opacity-20
                   hover:bg-opacity-30 transition
                 "
                                 aria-label="Play"
                             >
-                                <PlayCircleIcon className="size-6 text-fuchsia-500" />
+                                <PlayCircleIcon className="h-6 w-6 text-fuchsia-500" />
                             </button>
                             <h2 className="text-lg font-semibold">
                                 {video.title}
