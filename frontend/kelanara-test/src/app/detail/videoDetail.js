@@ -33,12 +33,13 @@ export default function VideoDetail() {
         <div className="bg-white min-h-screen">
             <Navbar />
             <Layout>
-                <div className="rounded-2xl overflow-hidden h-96">
-                    <ReactPlayer
-                        url={video.videoUrl}
+                <div className="rounded-2xl overflow-hidden h-[500px]">
+                    <iframe
+                        src={video.videoUrl}
                         controls
                         width="100%"
                         height="100%"
+                        className="rounded-2xl"
                     />
                 </div>
                 <div className="flex justify-between items-center mt-4">

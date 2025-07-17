@@ -1,3 +1,9 @@
+// Placeholder: replace this with your actual Pinterest‐API call / static endpoint
+function getRandomPinterestImage() {
+    // e.g. return fetchPinterestRandomImageUrl();
+    return `https://via.placeholder.com/300x200?text=Random+Pinterest+Image`;
+}
+
 export const videos = [
     {
         id: 1,
@@ -5,8 +11,8 @@ export const videos = [
         description:
             "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
         category: "Drama",
-        thumbnail: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-        videoUrl: "/videos/shawshank.mp4",
+        thumbnail: getRandomPinterestImage(),
+        videoUrl: "https://www.youtube.com/embed/6hB3S9bIaco",
         created_at: "1994-09-23T00:00:00Z",
         updated_at: "2023-10-01T00:00:00Z",
     },
@@ -16,8 +22,8 @@ export const videos = [
         description:
             "An organized crime dynasty's aging patriarch transfers control of his clandestine empire to his reluctant son.",
         category: "Crime",
-        thumbnail: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-        videoUrl: "/videos/godfather.mp4",
+        thumbnail: getRandomPinterestImage(),
+        videoUrl: "https://www.youtube.com/embed/sY1S34973zA",
         created_at: "1972-03-14T00:00:00Z",
         updated_at: "2023-10-01T00:00:00Z",
     },
@@ -27,8 +33,9 @@ export const videos = [
         description:
             "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
         category: "Action",
-        thumbnail: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-        videoUrl: "/videos/dark_knight.mp4",
+        thumbnail: getRandomPinterestImage(),
+        videoUrl:
+            "https://www.youtube.com/embed/EXeTwQWrcwY?si=V9zbL0DxC59BhiWD",
         created_at: "2008-07-18T00:00:00Z",
         updated_at: "2023-10-01T00:00:00Z",
     },
@@ -38,8 +45,8 @@ export const videos = [
         description:
             "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
         category: "Crime",
-        thumbnail: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-        videoUrl: "/videos/pulp_fiction.mp4",
+        thumbnail: getRandomPinterestImage(),
+        videoUrl: "https://www.youtube.com/embed/s7EdQ4FqbhY",
         created_at: "1994-10-14T00:00:00Z",
         updated_at: "2023-10-01T00:00:00Z",
     },
@@ -49,8 +56,8 @@ export const videos = [
         description:
             "The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate and other history unfold through the perspective of an Alabama man.",
         category: "Drama",
-        thumbnail: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-        videoUrl: "/videos/forrest_gump.mp4",
+        thumbnail: getRandomPinterestImage(),
+        videoUrl: "https://www.youtube.com/embed/bLvqoHBptjg",
         created_at: "1994-07-06T00:00:00Z",
         updated_at: "2023-10-01T00:00:00Z",
     },
@@ -59,9 +66,9 @@ export const videos = [
         title: "Inception",
         description:
             "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
-        category: "Sci-Fi",
-        thumbnail: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-        videoUrl: "/videos/inception.mp4",
+        category: "Sci‑Fi",
+        thumbnail: getRandomPinterestImage(),
+        videoUrl: "https://www.youtube.com/embed/YoHD9XEInc0",
         created_at: "2010-07-16T00:00:00Z",
         updated_at: "2023-10-01T00:00:00Z",
     },
@@ -70,9 +77,9 @@ export const videos = [
         title: "The Matrix",
         description:
             "A computer hacker learns about the true nature of his reality and his role in the war against its controllers.",
-        category: "Sci-Fi",
-        thumbnail: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-        videoUrl: "/videos/matrix.mp4",
+        category: "Sci‑Fi",
+        thumbnail: getRandomPinterestImage(),
+        videoUrl: "https://www.youtube.com/embed/vKQi3bBA1y8",
         created_at: "1999-03-31T00:00:00Z",
         updated_at: "2023-10-01T00:00:00Z",
     },
@@ -82,8 +89,8 @@ export const videos = [
         description:
             "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.",
         category: "Drama",
-        thumbnail: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-        videoUrl: "/videos/fight_club.mp4",
+        thumbnail: getRandomPinterestImage(),
+        videoUrl: "https://www.youtube.com/embed/SUXWAEX2jlg",
         created_at: "1999-10-15T00:00:00Z",
         updated_at: "2023-10-01T00:00:00Z",
     },
@@ -93,8 +100,8 @@ export const videos = [
         description:
             "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.",
         category: "Fantasy",
-        thumbnail: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-        videoUrl: "/videos/lotr_return_king.mp4",
+        thumbnail: getRandomPinterestImage(),
+        videoUrl: "https://www.youtube.com/embed/r5X-hFf6Bwo",
         created_at: "2003-12-17T00:00:00Z",
         updated_at: "2023-10-01T00:00:00Z",
     },
@@ -103,9 +110,9 @@ export const videos = [
         title: "Interstellar",
         description:
             "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
-        category: "Sci-Fi",
-        thumbnail: "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-        videoUrl: "/videos/interstellar.mp4",
+        category: "Sci‑Fi",
+        thumbnail: getRandomPinterestImage(),
+        videoUrl: "https://www.youtube.com/embed/zSWdZVtXT7E",
         created_at: "2014-11-07T00:00:00Z",
         updated_at: "2023-10-01T00:00:00Z",
     },
