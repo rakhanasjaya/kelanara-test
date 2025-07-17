@@ -1,23 +1,17 @@
+// app/page.jsx  (or pages/index.jsx, adjust path as needed)
+
 import Navbar from "../../components/navbar";
 import Layout from "../../components/layout/layout";
 import Link from "next/link";
+// import the static data
+import { videos } from "../../staticData/videos"; // adjust the path to wherever your videos.js lives
 
-export default async function Home() {
-    const res = await fetch("http://localhost:4000/videos", {
-        cache: "no-store",
-    });
-
-    if (!res.ok) {
-        // handle HTTP errors however you like
-        throw new Error(`Failed to fetch videos: ${res.status}`);
-    }
-
-    // Pull out the array stored in `data`
-    const { data: videos } = await res.json();
+export default function Home() {
     return (
         <div className="bg-white min-h-screen">
             <Navbar />
             <Layout>
+                {/* Trending */}
                 <div className="flex flex-col gap-2">
                     <h1 className="mb-4 text-lg font-extrabold leading-none tracking-tight text-gray-900 md:text-xl lg:text-2xl">
                         Yang lagi{" "}
@@ -34,20 +28,22 @@ export default async function Home() {
                                 key={video.id}
                             >
                                 <img
-                                    src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-                                    alt="..."
+                                    src={video.thumbnail}
+                                    alt={video.title}
                                     className="h-full w-full object-cover"
                                 />
                             </Link>
                         ))}
                     </div>
                 </div>
+
+                {/* Originals */}
                 <div className="flex flex-col gap-2">
                     <h1 className="mb-4 text-lg font-extrabold leading-none tracking-tight text-gray-900 md:text-xl lg:text-2xl">
                         Kelanara Studio{" "}
                         <mark className="px-2 text-white bg-fuchsia-600 rounded-sm">
                             Originals
-                        </mark>{" "}
+                        </mark>
                     </h1>
                     <div className="grid grid-cols-6 h-72 gap-6 overflow-hidden">
                         {videos.slice(3, 9).map((video) => (
@@ -57,20 +53,22 @@ export default async function Home() {
                                 className="h-full w-full object-cover rounded-2xl overflow-hidden"
                             >
                                 <img
-                                    src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-                                    alt="..."
+                                    src={video.thumbnail}
+                                    alt={video.title}
                                     className="h-full w-full object-cover"
                                 />
                             </Link>
                         ))}
                     </div>
                 </div>
+
+                {/* Horror Category */}
                 <div className="flex flex-col gap-2">
                     <h1 className="mb-4 text-lg font-extrabold leading-none tracking-tight text-gray-900 md:text-xl lg:text-2xl">
                         Kategori{" "}
                         <mark className="px-2 text-white bg-fuchsia-600 rounded-sm">
                             Horror
-                        </mark>{" "}
+                        </mark>
                     </h1>
                     <div className="grid grid-cols-6 h-72 gap-6 overflow-hidden">
                         {videos.slice(9, 15).map((video) => (
@@ -80,8 +78,8 @@ export default async function Home() {
                                 className="h-full w-full object-cover rounded-2xl overflow-hidden"
                             >
                                 <img
-                                    src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-                                    alt="..."
+                                    src={video.thumbnail}
+                                    alt={video.title}
                                     className="h-full w-full object-cover"
                                 />
                             </Link>

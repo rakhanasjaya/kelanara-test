@@ -1,10 +1,13 @@
+// app/admin/create-video/page.jsx  (or pages/admin/create-video.jsx)
+
 "use client";
-import Layout from "../../../components/layout/layout";
-import Navbar from "../../../components/navbar";
-import InputSecondary from "../../../components/inputSecond";
-import Button from "../../../components/button";
 import React from "react";
 import { useRouter } from "next/navigation";
+import Navbar from "../../../components/navbar";
+import Layout from "../../../components/layout/layout";
+import InputSecondary from "../../../components/inputSecond";
+import Button from "../../../components/button";
+import { videos } from "../../../staticData/videos";
 
 export default function CreateVideo() {
     const router = useRouter();
@@ -23,11 +26,12 @@ export default function CreateVideo() {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setSubmitting(true);
         setError("");
 
+        // Simple client‑side "auth"
         const token = localStorage.getItem("token");
         if (!token) {
             setError("You must be logged in");
@@ -36,31 +40,26 @@ export default function CreateVideo() {
         }
 
         try {
-            const res = await fetch("http://localhost:4000/videos", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    title: formData.title,
-                    description: formData.description,
-                    video_url: formData.url, // kalau backend pakai key video_url
-                    category: formData.category,
-                    status: formData.status,
-                }),
+            // Create a new video object
+            const newId = videos.length ? videos[videos.length - 1].id + 1 : 1;
+            const now = new Date().toISOString();
+            videos.push({
+                id: newId,
+                title: formData.title,
+                description: formData.description,
+                category: formData.category,
+                videoUrl: formData.url,
+                thumbnail: formData.url, // or use a placeholder
+                status: formData.status, // added for consistency
+                created_at: now,
+                updated_at: now,
             });
 
-            if (!res.ok) {
-                const body = await res.json();
-                throw new Error(body.message || `Error ${res.status}`);
-            }
-
-            // sukses: redirect atau bersihkan form
+            // Redirect back to the dashboard
             router.push("/admin/adminDashboard");
         } catch (err) {
             console.error(err);
-            setError(err.message);
+            setError("Failed to create video.");
         } finally {
             setSubmitting(false);
         }
@@ -136,7 +135,7 @@ export default function CreateVideo() {
                     </div>
 
                     <Button type="submit" disabled={submitting}>
-                        {submitting ? "Submitting…" : "Create Video"}
+                        {submitting ? "Creating…" : "Create Video"}
                     </Button>
                 </form>
             </Layout>
