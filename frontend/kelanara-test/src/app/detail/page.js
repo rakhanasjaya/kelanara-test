@@ -1,6 +1,6 @@
 // app/detail/page.jsx
 import React, { Suspense } from "react";
-import VideoDetail from "./VideoDetail";
+import VideoDetail from "./videoDetail";
 
 export default function Page() {
     return (
