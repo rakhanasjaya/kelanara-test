@@ -1,5 +1,5 @@
 // app/page.jsx  (or pages/index.jsx, adjust path as needed)
-
+"use client";
 import Navbar from "../../components/navbar";
 import Layout from "../../components/layout/layout";
 import Link from "next/link";

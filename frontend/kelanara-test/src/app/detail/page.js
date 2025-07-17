@@ -1,69 +1,11 @@
-// app/detail/page.jsx  (or pages/detail.jsx)
+// app/detail/page.jsx
+import React, { Suspense } from "react";
+import VideoDetail from "./VideoDetail";
 
-"use client";
-
-import React, { useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import Layout from "../../../components/layout/layout";
-import Navbar from "../../../components/navbar";
-import ReactPlayer from "react-player";
-import { videos } from "../../../staticData/videos";
-
-export default function Detail() {
-    const searchParams = useSearchParams();
-    const router = useRouter();
-
-    // Get id from query string (?id=1)
-    const idParam = searchParams.get("id");
-    const videoId = idParam ? parseInt(idParam, 10) : null;
-
-    // Find the video in static data
-    const video = videos.find((v) => v.id === videoId);
-
-    // Redirect to login if no token
-    useEffect(() => {
-        const token =
-            typeof window !== "undefined"
-                ? localStorage.getItem("token")
-                : null;
-        if (!token) {
-            router.push("/login");
-        }
-    }, [router]);
-
-    // If no valid ID or video not found
-    if (!videoId || !video) {
-        return <div className="p-4 text-red-600">Video not found.</div>;
-    }
-
+export default function Page() {
     return (
-        <div className="bg-white min-h-screen">
-            <Navbar />
-            <Layout>
-                <div className="rounded-2xl overflow-hidden h-96">
-                    <ReactPlayer
-                        url={video.videoUrl}
-                        controls
-                        width="100%"
-                        height="100%"
-                    />
-                </div>
-
-                <div className="flex justify-between items-center mt-4">
-                    <h1 className="text-lg font-extrabold tracking-tight text-gray-900 md:text-xl lg:text-2xl">
-                        {video.title}
-                    </h1>
-                    <p className="text-sm font-medium">
-                        <mark className="px-2 text-white bg-fuchsia-600 rounded-sm">
-                            {video.category}
-                        </mark>
-                    </p>
-                </div>
-
-                <p className="mt-2 text-md font-normal text-black">
-                    {video.description}
-                </p>
-            </Layout>
-        </div>
+        <Suspense fallback={<div className="p-4">Loading video...</div>}>
+            <VideoDetail />
+        </Suspense>
     );
 }
