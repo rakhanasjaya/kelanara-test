@@ -4,16 +4,46 @@ import Input from "../../../components/input";
 import Layout from "../../../components/layout/layout";
 import Navbar from "../../../components/navbar";
 import React from "react";
+import { useRouter } from "next/navigation"; // ← import this
 
 export default function RegisterPage() {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
+    const [loading, setLoading] = React.useState(false);
+    const router = useRouter(); // ← initialize the router
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // TODO: implement register logic here
-        console.log({ email, password, confirmPassword });
+        setLoading(true); // make sure you set loading to true at the start
+
+        try {
+            const response = await fetch(
+                "http://localhost:4000/users/register",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password }),
+                }
+            );
+
+            // parse the JSON once and log it so you can see exactly what's coming back
+            const data = await response.json();
+            console.log("Login response payload:", data);
+
+            if (!response.ok) {
+                // if your API returns message on error, this will surf it up
+                localStorage.removeItem("token"); // clear token if login fails
+                throw new Error(data.message || "Register failed");
+            }
+
+            router.push("/login");
+        } catch (error) {
+            console.error("Register error:", error);
+            alert(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -78,7 +108,13 @@ export default function RegisterPage() {
                             </div>
                         </div>
 
-                        <Button type="submit">Register</Button>
+                        <Button
+                            type="submit"
+                            className="mt-4"
+                            disabled={loading}
+                        >
+                            Register
+                        </Button>
                     </form>
                 </div>
             </div>
