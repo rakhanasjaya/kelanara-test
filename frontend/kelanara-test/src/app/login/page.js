@@ -1,56 +1,42 @@
+// app/login/page.jsx  (or pages/login.jsx)
+
 "use client";
 import Button from "../../../components/button";
 import Input from "../../../components/input";
 import Navbar from "../../../components/navbar";
-import { useRouter } from "next/navigation"; // ← import this
 import React from "react";
+import { useRouter } from "next/navigation";
+import user from "../../../staticData/user";
 
 export default function LoginPage() {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [loading, setLoading] = React.useState(false);
-    const router = useRouter(); // ← initialize the router
+    const router = useRouter();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        setLoading(true); // make sure you set loading to true at the start
+        setLoading(true);
 
-        try {
-            const response = await fetch("http://localhost:4000/users/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
-            });
-
-            // parse the JSON once and log it so you can see exactly what's coming back
-            const data = await response.json();
-            console.log("Login response payload:", data);
-
-            if (!response.ok) {
-                // if your API returns message on error, this will surf it up
-                localStorage.removeItem("token"); // clear token if login fails
-                localStorage.removeItem("role"); // clear role if login fails
-                throw new Error(data.message || "Login failed");
-            }
-
-            // adjust this line to match your backend's key:
-            // e.g. if your API returns { accessToken: "..."} use data.accessToken
-            const token = data.data?.token;
-            if (!token) {
-                localStorage.removeItem("token"); // clear token if login fails
-                localStorage.removeItem("role"); // clear role if login fails
-                throw new Error("No token found in response. Check your API.");
-            }
-
-            localStorage.setItem("token", token);
-            localStorage.setItem("role", data.data.user.role || "user"); // adjust based on your API response
-            router.push("/");
-        } catch (error) {
-            console.error("Login error:", error);
-            alert(error.message);
-        } finally {
+        const record = user[email];
+        if (!record) {
+            alert("No account found for this email.");
             setLoading(false);
+            return;
         }
+        if (record.password !== password) {
+            alert("Incorrect password.");
+            setLoading(false);
+            return;
+        }
+
+        // Simulate a token (in production you'd use a real JWT)
+        const fakeToken = `token-${Math.random().toString(36).substr(2)}`;
+        localStorage.setItem("token", fakeToken);
+        localStorage.setItem("role", record.role);
+
+        setLoading(false);
+        router.push("/");
     };
 
     return (
@@ -67,7 +53,7 @@ export default function LoginPage() {
                 <div className="flex items-center justify-center bg-gradient-to-br from-fuchsia-50 to-white">
                     <form
                         onSubmit={handleSubmit}
-                        className="w-full max-w-md p-8 h-92 flex flex-col justify-between bg-gray-100 rounded-xl shadow bg-gradient-to-br from-fuchsia-800 to-fuchsia-400 text-white"
+                        className="w-full max-w-md p-8 flex flex-col justify-between bg-gradient-to-br from-fuchsia-800 to-fuchsia-400 text-white rounded-xl shadow"
                     >
                         <div>
                             <h2 className="text-2xl font-bold mb-6">Login</h2>
@@ -77,7 +63,6 @@ export default function LoginPage() {
                                     id="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     placeholder="you@example.com"
                                     required
                                     label="Email"
@@ -91,7 +76,6 @@ export default function LoginPage() {
                                     onChange={(e) =>
                                         setPassword(e.target.value)
                                     }
-                                    className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     placeholder="••••••••"
                                     required
                                     label="Password"

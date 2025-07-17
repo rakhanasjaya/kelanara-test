@@ -1,93 +1,29 @@
+// app/admin/dashboard/page.jsx  (or pages/admin/dashboard.jsx)
+
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../../../components/button";
 import Layout from "../../../components/layout/layout";
 import Navbar from "../../../components/navbar";
+import { videos as initialVideos } from "../../../staticData/videos";
+import Link from "next/link";
 
 export default function AdminDashboard() {
-    const [token, setToken] = useState(null);
-    const [videos, setVideos] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    // Daftar opsi status — sesuaikan dengan yang disediakan backend
+    const [videos, setVideos] = useState(
+        // Initialize with your static videos and add a default status if missing
+        initialVideos.map((v) => ({
+            ...v,
+            status: v.status ?? "draft",
+        }))
+    );
     const statusOptions = ["draft", "published"];
 
-    // Ambil token
-    useEffect(() => {
-        const t = localStorage.getItem("token");
-        setToken(t);
-    }, []);
-
-    // Fetch drafts
-    useEffect(() => {
-        if (!token) {
-            setLoading(false);
-            return;
-        }
-        fetch("http://localhost:4000/videos/drafts", {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        })
-            .then((res) => {
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                return res.json();
-            })
-            .then((json) => {
-                setVideos(json.data || []);
-            })
-            .catch((err) => {
-                console.error(err);
-                setError(err.message);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, [token]);
-
-    // di komponen React-mu
-    const updateStatus = async (id, newStatus) => {
-        try {
-            const res = await fetch(
-                `http://localhost:4000/videos/update/${id}`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    // cukup kirim status saja
-                    body: JSON.stringify({ status: newStatus }),
-                    // mode cors kalau perlu
-                    mode: "cors",
-                }
-            );
-            if (!res.ok) {
-                const body = await res.json().catch(() => ({}));
-                throw new Error(body.message || `Error ${res.status}`);
-            }
-            // sukses — kalau mau, panggil ulang fetch list atau tampil toast
-        } catch (err) {
-            console.error("Update status error:", err);
-            setError(err.message);
-            // rollback UI
-            setVideos((vs) =>
-                vs.map((v) =>
-                    v.id === id
-                        ? {
-                              ...v,
-                              status: videos.find((x) => x.id === id).status,
-                          }
-                        : v
-                )
-            );
-        }
+    const updateStatus = (id, newStatus) => {
+        // In a real API you'd POST here—this is just static demo logic.
+        setVideos((vs) =>
+            vs.map((v) => (v.id === id ? { ...v, status: newStatus } : v))
+        );
     };
-
-    if (loading) return <p className="p-4">Loading drafts…</p>;
-    if (error) return <p className="p-4 text-red-600">Error: {error}</p>;
 
     return (
         <div className="bg-white min-h-screen">
@@ -105,20 +41,21 @@ export default function AdminDashboard() {
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left text-gray-500">
                         <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-white">
-                            Our Video
+                            Our Videos
                             <div className="flex justify-between">
                                 <p className="mt-1 text-sm font-normal text-gray-500">
-                                    Browse a list of Flowbite products designed
-                                    to help you work and play…
+                                    Manage your video statuses below.
                                 </p>
-                                <Button>Apply Changes</Button>
+                                <Link href="/createVideo">
+                                    <Button>Create New Video</Button>
+                                </Link>
                             </div>
                         </caption>
 
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th className="px-6 py-3">Title</th>
-                                <th className="px-6 py-3">Url Video</th>
+                                <th className="px-6 py-3">Video URL</th>
                                 <th className="px-6 py-3">Category</th>
                                 <th className="px-6 py-3">Status</th>
                                 <th className="px-6 py-3">
@@ -138,7 +75,7 @@ export default function AdminDashboard() {
                                         {video.title}
                                     </th>
                                     <td className="px-6 py-4">
-                                        {video.video_url}
+                                        {video.videoUrl}
                                     </td>
                                     <td className="px-6 py-4">
                                         {video.category}
@@ -150,22 +87,9 @@ export default function AdminDashboard() {
                                         <select
                                             value={video.status}
                                             onChange={(e) => {
-                                                const newStatus =
-                                                    e.target.value;
-                                                // optimistically update UI
-                                                setVideos((vs) =>
-                                                    vs.map((v) =>
-                                                        v.id === video.id
-                                                            ? {
-                                                                  ...v,
-                                                                  status: newStatus,
-                                                              }
-                                                            : v
-                                                    )
-                                                );
                                                 updateStatus(
                                                     video.id,
-                                                    newStatus
+                                                    e.target.value
                                                 );
                                             }}
                                             className="border border-gray-300 rounded px-2 py-1"
@@ -186,7 +110,14 @@ export default function AdminDashboard() {
                     </table>
                 </div>
 
-                <Button className="mt-6">Apply Changes</Button>
+                <Button
+                    className="mt-6"
+                    onClick={() => {
+                        /* no-op */
+                    }}
+                >
+                    Apply Changes
+                </Button>
             </Layout>
         </div>
     );
